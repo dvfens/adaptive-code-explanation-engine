@@ -1,3 +1,4 @@
+import { explainCode } from "./api/explainCode";
 import { useState } from 'react';
 import './App.css';
 
@@ -6,10 +7,12 @@ function App() {
   const [mode, setMode] = useState('Student');
   const [explanation, setExplanation] = useState('');
 
-  const handleExplain = () => {
-    // Placeholder logic - no API calls as per requirements
-    setExplanation(`Code will be explained in ${mode} mode. (Backend integration pending)`);
-  };
+ const handleExplain = async () => {
+  setExplanation("Explaining code...");
+  const result = await explainCode(code, mode);
+  setExplanation(result);
+};
+
 
   return (
     <div className="App">
