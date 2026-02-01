@@ -1,77 +1,71 @@
 import { useState } from "react";
 import "./App.css";
 
-function App() {
+export default function App() {
   const [code, setCode] = useState("");
-  const [mode, setMode] = useState("Student");
-  const [explanation, setExplanation] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [mode, setMode] = useState("ELI5");
+  const [result, setResult] = useState("");
 
-  const handleExplain = async () => {
-    setLoading(true);
-    setError("");
-    setExplanation("");
+  const explainCode = async () => {
+    if (!code.trim()) return;
 
-    try {
-      const res = await fetch("http://localhost:5000/explain", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          code,
-          mode,
-        }),
-      });
+    const res = await fetch("http://localhost:5000/explain", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code, mode }),
+    });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Something went wrong");
-      }
-
-      setExplanation(data.explanation);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+    const data = await res.json();
+    setResult(data.explanation || "No response");
   };
 
   return (
-    <div className="App">
-      <h1>Adaptive Code Explanation Engine</h1>
+    <div className="page">
+      <h1 className="title">
+        ⚡ Adaptive Code Explanation Engine
+      </h1>
+      <p className="subtitle">
+        AI-powered code explanations tailored to your level
+      </p>
 
-      <label>Paste Your Code:</label>
-      <textarea
-        rows={12}
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-        placeholder="Paste your source code here..."
-      />
+      <div className="center">
+        <div className="grid">
+          {/* LEFT CARD */}
+          <div className="card">
+            <h3>📄 Source Code</h3>
 
-      <div className="controls">
-        <select value={mode} onChange={(e) => setMode(e.target.value)}>
-          <option value="Student">Student</option>
-          <option value="Senior Developer">Senior Developer</option>
-          <option value="ELI5">ELI5</option>
-        </select>
+            <textarea
+              placeholder="Paste your code here..."
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+            />
 
-        <button onClick={handleExplain} disabled={loading}>
-          {loading ? "Explaining..." : "Explain Code"}
-        </button>
-      </div>
+            <div className="actions">
+              <select value={mode} onChange={(e) => setMode(e.target.value)}>
+                <option value="ELI5">ELI5</option>
+                <option value="Student">Student</option>
+                <option value="Senior">Senior</option>
+              </select>
 
-      <div className="output">
-        <h3>Explanation:</h3>
+              <button onClick={explainCode}>
+                ✨ Explain Code
+              </button>
+            </div>
+          </div>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
-
-        {explanation && <pre>{explanation}</pre>}
+          {/* RIGHT CARD */}
+          <div className="card">
+            {result ? (
+              <pre className="output">{result}</pre>
+            ) : (
+              <div className="empty">
+                🤖 Ready to explain your code  
+                <span>Paste code and click “Explain Code”</span>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-
-export default App;

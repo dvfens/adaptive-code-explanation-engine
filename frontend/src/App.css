@@ -1,153 +1,118 @@
-.App {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-family: system-ui, -apple-system, sans-serif;
+/* FULL RESET */
+* {
+  box-sizing: border-box;
 }
 
-header {
-  margin-bottom: 2rem;
-}
-
-h1 {
-  color: #333;
+html, body, #root {
+  width: 100%;
+  height: 100%;
   margin: 0;
+}
+
+/* PAGE */
+.page {
+  min-height: 100vh;
+  width: 100%;
+  background: radial-gradient(circle at top, #14162b, #05060f);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* HEADER */
+.title {
+  margin-top: 40px;
+  font-size: 36px;
   text-align: center;
 }
 
-main {
+.subtitle {
+  opacity: 0.7;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* HARD CENTER ZONE */
+.center {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  justify-content: center;
 }
 
-.input-section,
-.controls,
-.output-section {
-  display: flex;
-  flex-direction: column;
+/* GRID — THIS IS THE KEY */
+.grid {
+  width: 1100px;
+  max-width: 95%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
 }
 
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: #555;
-  font-size: 14px;
+/* CARDS */
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  min-height: 360px;
 }
 
+/* TEXTAREA */
 textarea {
   width: 100%;
-  padding: 0.75rem;
-  font-family: 'Courier New', monospace;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
-  box-sizing: border-box;
-  transition: border-color 0.2s;
+  height: 200px;
+  resize: none;
+  background: #0b0d1a;
+  color: #fff;
+  border-radius: 12px;
+  border: none;
+  padding: 14px;
+  margin: 12px 0;
+  font-family: monospace;
 }
 
-textarea:focus {
-  outline: none;
-  border-color: #646cff;
-  box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.1);
-}
-
-textarea:disabled {
-  background-color: #f5f5f5;
-  cursor: not-allowed;
-}
-
-.controls {
-  flex-direction: row;
-  align-items: flex-end;
-  gap: 1rem;
-}
-
-.control-group {
+/* ACTIONS */
+.actions {
   display: flex;
-  flex-direction: column;
-  flex: 1;
+  justify-content: space-between;
+  align-items: center;
 }
 
 select {
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: border-color 0.2s;
-}
-
-select:focus {
-  outline: none;
-  border-color: #646cff;
-  box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.1);
-}
-
-select:disabled {
-  background-color: #f5f5f5;
-  cursor: not-allowed;
+  background: #0b0d1a;
+  color: #fff;
+  border-radius: 8px;
+  border: none;
+  padding: 8px;
 }
 
 button {
-  padding: 0.6rem 1.5rem;
-  background-color: #646cff;
-  color: white;
+  background: linear-gradient(135deg, #7c7cff, #9f7cff);
   border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 600;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
-  white-space: nowrap;
+  font-weight: bold;
 }
 
-button:hover:not(:disabled) {
-  background-color: #535bf2;
-}
-
-button:active:not(:disabled) {
-  transform: scale(0.98);
-}
-
-button:disabled {
-  background-color: #999;
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.error-message {
-  padding: 0.75rem 1rem;
-  background-color: #fee;
-  border: 1px solid #fcc;
-  border-radius: 4px;
-  color: #c33;
-  font-size: 14px;
-}
-
-.output-box {
-  padding: 1rem;
-  min-height: 150px;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  text-align: left;
+/* OUTPUT */
+.output {
   white-space: pre-wrap;
-  word-wrap: break-word;
-  color: #333;
-  font-size: 14px;
-  line-height: 1.6;
+  font-family: monospace;
 }
 
-@media (max-width: 768px) {
-  .controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  button {
-    width: 100%;
-  }
+.empty {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.7;
+}
+
+.empty span {
+  font-size: 14px;
+  margin-top: 8px;
 }
